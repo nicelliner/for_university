@@ -7,7 +7,7 @@ const Queue = {
         {id: "5-command", command: "reverse"},
     ],
     get property() {
-        for (let i = 1; i < this.commands.length; i++)
+        for (let i = this.commands.length-1; i > 0; i--)
             this.commands[i].id = this.commands[i-1].id;
         return this.commands.shift();
     },
