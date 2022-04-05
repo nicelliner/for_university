@@ -6,8 +6,7 @@ const factorial = (array) => {
 }
 
 const reverseString = (array) => {
-  const arr = array.reverse();
-  return arr.join("-");
+  return array.reverse().join("-");
 }
 
 console.log(factorial(arr))
