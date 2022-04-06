@@ -13,17 +13,14 @@ const FirstClass = {
         function callBack(a,b) {
             if (a.age > b.age) return 1;
             if (a.age === b.age) {
-                if (a.name[0] > b.name[0]) return 1;
-                if (a.name[0] < b.name[0]) return -1;
-                return 0;
+                return a.name.localeCompare(b.name);
             }
             if (a.age < b.age) return -1;
         }
         return this.children.sort(callBack);
     },
     set property({name, age}) {
-        if (name[0] == name[0].toLowerCase())
-            name = name[0].toUpperCase() + name.slice(1, name.length);
+        name = name[0].toUpperCase() + name.slice(1, name.length).toLowerCase();
         this.children[this.children.length] = {name, age};
     }
 }

@@ -13,16 +13,18 @@ const HappyBirthday = {
         return string_array;
     },
     set property({name, day}) {
-        if (day.indexOf("/", 0) != 2) return console.log("Введите дату в формате 01/03");
-        if (name[0] == name[0].toLowerCase())
-            name = name[0].toUpperCase() + name.slice(1, name.length);
-        this.hDays[this.hDays.length] = {name: name, month: day[0]+day[1], day: day[3]+day[4] };
+        name = name[0].toUpperCase() + name.slice(1, name.length).toLowerCase();
+        let result_month = day.slice(0, day.indexOf("/", 0));
+        let result_day  = day.slice(day.indexOf("/", 0)+1, day.length);
+        if ( result_month < 10 && result_month.length < 2) result_month = '0'.concat(result_month);
+        if ( result_day < 10 && result_day.length < 2) result_day = '0'.concat(result_day);
+        this.hDays[this.hDays.length] = {name: name, month: result_month, day: result_day };
     },
     showDaysOnMonth:function (month) {
         for (let person of this.hDays) if (person.month === month) console.log(person.name);
     }
 }
 
-HappyBirthday.property = {name: "Denis", day: "02/23"};
+HappyBirthday.property = {name: "Denis", day: "3/2"};
 console.log(HappyBirthday.property);
 HappyBirthday.showDaysOnMonth("02")
