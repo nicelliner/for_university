@@ -8,9 +8,13 @@ const stones = [
 // [“E”, ”A”, ”D”, ”B”, ”C”] не верный ответ, так как ["B", "D", true]
 
 const stoneSorted = (stones) => {
+  return sorted(stones).split("")
+}
+
+const sorted = (stones) => {
   if (stones.length === 1)
       return (stones[0][2] === true) ? stones[0][0] + stones[0][1] : stones[0][1] + stones[0][0];
-    return heaviestStone(stones) + stoneSorted(deleteHeaviestStoneInStones(stones, heaviestStone(stones)));
+  return heaviestStone(stones) + sorted(deleteHeaviestStoneInStones(stones, heaviestStone(stones)));
 }
 
 const heaviestStone = (stones, element = stones[0][0], i = 0) => {
