@@ -5,14 +5,27 @@ const stones = [
     ["C", "E", false]
 ]
 
-// const stoneSorted = (stones) => {
-//   if (stones.length === 1) return stones;
-//   return stoneSorted(stones) + stones[0][0] + stoneSorted(stones);
-// }
-//
-// const lessArr = (stones, i = 0, resultArray = []) => {
-//   if (i === stones.length) return resultArray
-//
-// }
-//
-// console.log(stoneSorted(stones))
+// [“E”, ”A”, ”D”, ”B”, ”C”] не верный ответ, так как ["B", "D", true]
+
+const stoneSorted = (stones) => {
+  if (stones.length === 1)
+      return (stones[0][2] === true) ? stones[0][0] + stones[0][1] : stones[0][1] + stones[0][0];
+    return heaviestStone(stones) + stoneSorted(deleteHeaviestStoneInStones(stones, heaviestStone(stones)));
+}
+
+const heaviestStone = (stones, element = stones[0][0], i = 0) => {
+    if (i === stones.length) return element;
+    if (stones[i].indexOf(element) === -1) return heaviestStone(stones, element, ++i);
+    return (stones[i].indexOf(element) === 0 && stones[i][2] === true
+        || stones[i].indexOf(element) === 1 && stones[i][2] === false)
+        ? heaviestStone(stones, element, ++i)
+        : heaviestStone(stones, stones[i][1]);
+}
+
+const deleteHeaviestStoneInStones = (stones, heaviestStone, resultStones = [],i =0) => {
+    if (i === stones.length) return resultStones;
+    if (stones[i].indexOf(heaviestStone) === -1)  resultStones.push(stones[i]);
+    return deleteHeaviestStoneInStones(stones, heaviestStone, resultStones, ++i);
+}
+
+console.log(stoneSorted(stones))
