@@ -5,8 +5,6 @@ const stones = [
     ["C", "E", false]
 ]
 
-// [“E”, ”A”, ”D”, ”B”, ”C”] не верный ответ, так как ["B", "D", true]
-
 const stoneSorted = (stones) => {
   return sorted(stones).split("")
 }
