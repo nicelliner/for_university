@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практика DOM.js</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>DOM.js</h1>
+    <section class="first-exercise">
+        <h2>Простые вычисления</h2>
+        <input type="text" class="input-field">
+        <input type="text" class="input-field">
+        <div class="operators">
+            <button>+</button>
+            <button>-</button>
+            <button>%</button>
+            <button>*</button>
+            <button>/</button>
+            <button>^</button>
+        </div>
+        <input type="text" class="output-field">
+    </section>
+
+    <script>
+        const first_section = document.body.getElementsByTagName("section")[0];
+        const operators = first_section.getElementsByTagName("div")[0];
+
+        for (let oper of operators.getElementsByTagName("button")) {
+            oper.addEventListener("click", () => {
+                const first_oper = Number(first_section.getElementsByTagName("input")[0].value);
+                const second_oper = Number(first_section.getElementsByTagName("input")[1].value);
+                switch (oper.textContent) {
+                    case "+": return first_section.getElementsByTagName("input")[2].value = first_oper + second_oper;
+                    case "-": return first_section.getElementsByTagName("input")[2].value = first_oper - second_oper;
+                    case "%": return first_section.getElementsByTagName("input")[2].value = first_oper % second_oper;
+                    case "*": return first_section.getElementsByTagName("input")[2].value = first_oper * second_oper;
+                    case "/": return first_section.getElementsByTagName("input")[2].value = first_oper / second_oper;
+                    case "^": return first_section.getElementsByTagName("input")[2].value = first_oper ** second_oper;
+                }
+            })
+        }
+    </script>
+
+    <section class="second-exercise">
+        <h2>Работа с предложением</h2>
+        <textarea></textarea>
+        <div class="changes-button">
+            <button>Сделать первую букву заглавной</button>
+            <button>Убрать лишние пробелы</button>
+            <button>Поставить точку</button>
+            <button>Поставить многоточие</button>
+        </div>
+    </section>
+
+    <script>
+        const second_section = document.body.getElementsByTagName("section")[1];
+        const options = second_section.getElementsByTagName("div")[0];
+        for (let option of options.getElementsByTagName("button")) {
+            option.addEventListener("click", () => {
+                let text = second_section.getElementsByTagName("textarea")[0].value;
+                switch (option.textContent) {
+                    case "Сделать первую букву заглавной":
+                        return second_section.getElementsByTagName("textarea")[0].value =  text.toUpperCase()[0] + text.slice(1, text.length);
+                    case "Убрать лишние пробелы":
+                        for (let spaces in text) {
+                            if (text.indexOf("  ") === -1)
+                                return second_section.getElementsByTagName("textarea")[0].value = text;
+                            else
+                                text = text.slice(0, text.indexOf("  ")) + text.slice(text.indexOf("  ")+1, text.length);
+                        }
+                    case "Поставить точку":
+                        return second_section.getElementsByTagName("textarea")[0].value = text.concat(".");
+                    case "Поставить многоточие":
+                        if (text.length > 100)
+                            return second_section.getElementsByTagName("textarea")[0].value = text.concat(":");
+                        else
+                            return alert("Меньше 100 символов");
+                }
+            })
+        }
+    </script>
+    
+    <section class="third-exercise">
+        <h2>Создание открытки</h2>
+        <label for="sender">Отправитель</label>
+        <input id="sender" type="text">
+        <label for="destination">Адресат</label>
+        <input id="destination" type="text">
+        <label for="header">Заголовок</label>
+        <input id="header" type="text">
+        <div class="third-massage">
+            <label for="message">Текст сообщения</label>
+            <textarea id="message"></textarea></div>
+        <button>Отправить</button>
+    </section>
+
+    <script>
+        // Не закончено
+        const third_exercise = document.body.getElementsByTagName("section")[2];
+        third_exercise.getElementsByTagName("button")[0].addEventListener("click", () => {
+            const sender = third_exercise.getElementsByTagName("input")[0].value;
+            const destination = third_exercise.getElementsByTagName("input")[1].value;
+            const header = third_exercise.getElementsByTagName("input")[2].value;
+            const message = third_exercise.getElementsByTagName("textarea")[0].value;
+            if (sender === "" || destination === "" || header === "" || message === "") return 1;
+
+            const divMassage = third_exercise.createElement("div");
+            const newSender = third_exercise.createElement("p");
+            const newDestination = third_exercise.createElement("p");
+            const newHeader = third_exercise.createElement("h3");
+            const newMassage = third_exercise.createElement("p");
+
+            document.body.getElementsByTagName("section")[2].appendChild(divMassage)
+            divMassage.appendChild(newSender);
+            divMassage.appendChild(newDestination);
+            divMassage.appendChild(newHeader);
+            divMassage.appendChild(newMassage);
+
+            newSender.textContent = "Отправитель: " + sender;
+            newDestination.textContent = "Адресат: " + destination;
+            newHeader.textContent = header;
+            newMassage.textContent = message;
+
+            // divMassage.classList.add("massages")
+            // divMassage.style = {
+            //     padding: 20,
+            //     width: 100,
+            //     height: 100
+            //
+            // }
+
+        })
+
+    </script>
+    
+    <section class="fourth-exercise">
+        <h2>Список языков</h2>
+        <h3>Перечислите языки, которыми вы владеете</h3>
+        <textarea id="languages"></textarea>
+        <div class="languages">
+            <button>JavaSctipt</button>
+            <button>C++</button>
+            <button>Java</button>
+            <button>Python</button>
+            <button>PHP</button>
+            <button>Ruby</button>
+            <button>Assembler</button>
+            <button>C#</button>
+        </div>
+    </section>
+
+    <script>
+        const fourth_exercise = document.body.getElementsByTagName("section")[3];
+        const languages = fourth_exercise.getElementsByTagName("div")[0];
+        for (let language of languages.getElementsByTagName("button")) {
+            language.addEventListener("click", () => {
+                const text = fourth_exercise.getElementsByTagName("textarea")[0].value;
+                if (language.style.backgroundColor == "green") {
+                    language.style.backgroundColor = "red";
+                    return fourth_exercise.getElementsByTagName("textarea")[0].value
+                        = text.slice(0, text.indexOf(language.textContent)) + text.slice(text.indexOf(language.textContent)+language.textContent.length+2, text.length);
+                }
+                language.style.backgroundColor = "green";
+                if (text === "")
+                    return fourth_exercise.getElementsByTagName("textarea")[0].value = language.textContent;
+                else
+                    return fourth_exercise.getElementsByTagName("textarea")[0].value = text + ", " + language.textContent;
+
+            })
+        }
+    </script>
+
+    <section class="fifth-exercise">
+        <h2>Анкета</h2>
+        <label for="name">Имя</label>
+        <input id="name" type="text">
+        <label for="surename">Фамилия</label>
+        <input id="surename" type="text">
+        <label for="group">Группа</label>
+        <input id="group" type="text">
+        <button>Начать тестирование</button>
+    </section>
+
+    <section class="sixth-exercise">
+        <h2>Создание опроса</h2>
+
+    </section>
+
+</body>
+</html>
